@@ -134,6 +134,7 @@ def main():
     board = NonogramBoard(args.y_rules, args.x_rules, args.size)
     if not board.validate():
         logging.error('Board is not valid!')
+        sys.exit(-1)
     else:
         logging.info('Board is valid, solving:')
     changed = True
