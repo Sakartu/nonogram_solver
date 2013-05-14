@@ -47,9 +47,6 @@ where:
 
 
 def generate_permutations(rules, row):
-    #rules = [2,1]
-    #row = [None, None, None, None, None]
-    #return [[True, True, None, True, None], [True, True, None, None, True], [None, True, True, None, True]]
     logging.debug('rules: ' + str(rules))
     logging.debug('row: ' + str(row))
     if not rules:
@@ -125,8 +122,6 @@ def solve_row(rules, row):
 def transpose(board):
     board.grid = zip(*board.grid)
     board.x_rules, board.y_rules = board.y_rules, board.x_rules
-    #board.x_rules = [x[::-1] for x in board.x_rules]
-    #board.y_rules = [x[::-1] for x in board.y_rules]
 
 
 def main():
