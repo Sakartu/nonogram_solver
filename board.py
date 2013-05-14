@@ -14,6 +14,10 @@ class NonogramBoard(object):
             self.grid.append(row)
 
     def validate(self):
+        # Validate number of rules
+        if len(self.x_rules) > self.size.x or len(self.y_rules) > self.size.y:
+            return False
+
         # Validate size
         for rule in self.y_rules:
             if sum(rule) + len(rule) - 1 > self.size.y:
@@ -21,8 +25,6 @@ class NonogramBoard(object):
         for rule in self.x_rules:
             if sum(rule) + len(rule) - 1 > self.size.x:
                 return False
-
-        # Validate rules
         return True
 
     def print_board(self):
