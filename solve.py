@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import copy
-import argparse
-import logging
 from collections import namedtuple
 from board import NonogramBoard
+import argparse
+import logging
+import sys
+import copy
 
 
 def parse_args():
