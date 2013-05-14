@@ -9,7 +9,33 @@ from board import NonogramBoard
 
 def parse_args():
     logging.basicConfig(format='[ %(levelname)8s ] %(message)s', level=logging.WARNING)
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description=u'''This program can solve Nonogram puzzles (see http://en.wikipedia.org/wiki/Nonogram). For this board:
+    |  2 1 1 1
+    |3 1 1 2 1
+----+----------
+ 2 1|
+   3|
+ 1 1|
+   3|
+   2|
+
+An example call would be: ./solve.py -x 3 -x 2 1 -x 1 1 -x 1 2 -x 1 1 -y 2 1 -y 3 -y 1 1 -y 3 -y 2 -s 5x5
+
+After solving, the result is:
+
+    |  2 1 1 1
+    |3 1 1 2 1
+----+----------
+ 2 1|█ █ ░ █ ░
+   3|█ █ █ ░ ░
+ 1 1|█ ░ ░ ░ █
+   3|░ █ █ █ ░
+   2|░ ░ ░ █ █
+
+where:
+'░' = Empty
+'█' = Filled
+' ' = Unknown''', formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument('-y', '--y-rules', nargs='+', type=int, action='append', required=True, help='The rules for the vertical axis. A single rule is a number of space separated numbers. Add multiple arguments to add more rules. Example: -y 1 2 3 -y 4 5 6')
     parser.add_argument('-x', '--x-rules', nargs='+', type=int, action='append', required=True, help='The rules for the horizontal axis. A single rule is a number of space separated numbers. Add multiple arguments to add more rules. Example: -x 1 2 3 -x 4 5 6')
     parser.add_argument('-s', '--size', required=True, help='The size of the board, defined like 10x15, where 10 is the number of rows and 15 is the number of colums.')
