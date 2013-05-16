@@ -42,11 +42,11 @@ class NonogramBoard(object):
         padded_x_rules = [[' '] * (max_x - len(x)) + x for x in self.x_rules]
         padded_y_rules = [[' '] * (max_y - len(y)) + y for y in self.y_rules]
         for row in list(zip(*padded_x_rules)):
-            result += u'  ' * max_y
+            result += u'  ' * max_y + ' '
             result += u'|'
             result += ''.join(u'{:<2s}'.format(str(x)) for x in row)
             result += u'\n'
-        result += u'--' * max_x
+        result += u'--' * max_x + '-'
         result += u'+'
         result += u'--' * len(padded_x_rules)
         result += u'\n'
