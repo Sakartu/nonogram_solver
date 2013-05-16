@@ -37,11 +37,11 @@ where:
 '░' = Empty
 '█' = Filled
 ' ' = Unknown''', formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument('-y', '--y-rules', nargs='+', type=int, action='append', required=True, help='The rules for the vertical axis. A single rule is a number of space separated numbers. Add multiple arguments to add more rules. Example: -y 1 2 3 -y 4 5 6')
-    parser.add_argument('-x', '--x-rules', nargs='+', type=int, action='append', required=True, help='The rules for the horizontal axis. A single rule is a number of space separated numbers. Add multiple arguments to add more rules. Example: -x 1 2 3 -x 4 5 6')
-    parser.add_argument('-s', '--size', required=True, help='The size of the board, defined like 10x15, where 10 is the number of rows and 15 is the number of colums.')
+    parser.add_argument('-y', '--y-rules', nargs='+', type=int, action='append', required=True, help='The rules for the vertical axis. A single rule is a number of space separated numbers. Add multiple arguments to add more rules. An empty row can be denoted as a single 0. Example: -y 1 2 3 -y 4 5 6 -y 0')
+    parser.add_argument('-x', '--x-rules', nargs='+', type=int, action='append', required=True, help='The rules for the horizontal axis. A single rule is a number of space separated numbers. Add multiple arguments to add more rules. An empty row can be denoted as a single 0. Example: -x 1 2 3 -x 4 5 6 -x 0')
+    parser.add_argument('-s', '--size', required=True, help='The size of the board, defined like 10x15, where 10 is the number of columns and 15 is the number of rows (so first x, then y).')
     args = parser.parse_args()
-    Size = namedtuple('Size', 'y x')
+    Size = namedtuple('Size', 'x y')
     args.size = Size(*map(int, args.size.split('x')))
     return args
 
@@ -55,6 +55,8 @@ def generate_permutations(rules, row):
     if len(rules) == 1:
         if rules[0] > len(row):
             return [row]
+        elif rules[0] == 0:
+            return [[False] * len(row)]
         else:
             return embed(first, False, len(row))
     else:
