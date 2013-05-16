@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import logging
 
 
 class NonogramBoard(object):
@@ -15,15 +16,21 @@ class NonogramBoard(object):
 
     def validate(self):
         # Validate number of rules
-        if len(self.x_rules) > self.size.x or len(self.y_rules) > self.size.y:
+        if len(self.x_rules) != self.size.x:
+            logging.debug('Number of x rules does not match x size ({0} != {1})'.format(len(self.x_rules), self.size.x))
+            return False
+        if len(self.y_rules) != self.size.y:
+            logging.debug('Number of y rules does not match y size ({0} != {1})'.format(len(self.y_rules), self.size.y))
             return False
 
         # Validate size
         for rule in self.y_rules:
-            if sum(rule) + len(rule) - 1 > self.size.y:
+            if sum(rule) + len(rule) - 1 > self.size.x:
+                logging.debug('Sum of y rule "{0}" is larger than the x size ({1})'.format(rule, self.size.y))
                 return False
         for rule in self.x_rules:
-            if sum(rule) + len(rule) - 1 > self.size.x:
+            if sum(rule) + len(rule) - 1 > self.size.y:
+                logging.debug('Sum of x rule "{0}" is larger than the y size ({1})'.format(rule, self.size.x))
                 return False
         return True
 
