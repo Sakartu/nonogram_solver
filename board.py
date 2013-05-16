@@ -44,7 +44,7 @@ class NonogramBoard(object):
         for row in list(zip(*padded_x_rules)):
             result += u'  ' * max_y
             result += u'|'
-            result += u' '.join(str(x) for x in row)
+            result += ''.join(u'{:<2s}'.format(str(x)) for x in row)
             result += u'\n'
         result += u'--' * max_x
         result += u'+'
@@ -56,7 +56,7 @@ class NonogramBoard(object):
                 rule = padded_y_rules[i]
             except IndexError:
                 rule = []
-            result += u' ' + u' '.join(str(x) for x in rule)
+            result += u' ' + ''.join(u'{:<2s}'.format(str(x)) for x in rule)
             result += u'|'
             for cell in row:
                 if cell is True:
